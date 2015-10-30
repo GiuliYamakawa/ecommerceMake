@@ -28,6 +28,12 @@ public class Produto implements Serializable
    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    private Categoria categoria;
 
+   @Column
+   private double peso;
+
+   @Column
+   private double preco;
+
    public Long getId()
    {
       return this.id;
@@ -46,15 +52,6 @@ public class Produto implements Serializable
    public void setVersion(final int version)
    {
       this.version = version;
-   }
-
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      return result;
    }
 
    @Override
@@ -96,5 +93,34 @@ public class Produto implements Serializable
    public void setCategoria(final Categoria categoria)
    {
       this.categoria = categoria;
+   }
+
+   public double getPeso()
+   {
+      return peso;
+   }
+
+   public void setPeso(double peso)
+   {
+      this.peso = peso;
+   }
+
+   public double getPreco()
+   {
+      return preco;
+   }
+
+   public void setPreco(double preco)
+   {
+      this.preco = preco;
+   }
+
+   @Override
+   public String toString()
+   {
+      String result = getClass().getSimpleName() + " ";
+      result += "peso: " + peso;
+      result += ", preco: " + preco;
+      return result;
    }
 }
