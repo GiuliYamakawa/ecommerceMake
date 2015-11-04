@@ -8,13 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Version;
 import java.lang.Override;
-import br.univel.br.model.Categoria;
+import br.univel.br.model.ProdutoPedido;
 import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
+import java.util.Set;
+import java.util.HashSet;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Produto implements Serializable
+public class Pedido implements Serializable
 {
 
    @Id
@@ -25,17 +28,8 @@ public class Produto implements Serializable
    @Column(name = "version")
    private int version;
 
-   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-   private Categoria categoria;
-
-   @Column
-   private double peso;
-
-   @Column
-   private double preco;
-
-   @Column
-   private String cor;
+   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+   private Set<ProdutoPedido> produtosPedido = new HashSet<ProdutoPedido>();
 
    public Long getId()
    {
@@ -58,17 +52,26 @@ public class Produto implements Serializable
    }
 
    @Override
+   public String toString()
+   {
+      String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      return result;
+   }
+
+   @Override
    public boolean equals(Object obj)
    {
       if (this == obj)
       {
          return true;
       }
-      if (!(obj instanceof Produto))
+      if (!(obj instanceof Pedido))
       {
          return false;
       }
-      Produto other = (Produto) obj;
+      Pedido other = (Pedido) obj;
       if (id != null)
       {
          if (!id.equals(other.id))
@@ -88,54 +91,14 @@ public class Produto implements Serializable
       return result;
    }
 
-   public Categoria getCategoria()
+   public Set<ProdutoPedido> getProdutosPedido()
    {
-      return this.categoria;
+      return this.produtosPedido;
    }
 
-   public void setCategoria(final Categoria categoria)
+   public void setProdutosPedido(final Set<ProdutoPedido> produtosPedido)
    {
-      this.categoria = categoria;
+      this.produtosPedido = produtosPedido;
    }
 
-   public double getPeso()
-   {
-      return peso;
-   }
-
-   public void setPeso(double peso)
-   {
-      this.peso = peso;
-   }
-
-   public double getPreco()
-   {
-      return preco;
-   }
-
-   public void setPreco(double preco)
-   {
-      this.preco = preco;
-   }
-
-   public String getCor()
-   {
-      return cor;
-   }
-
-   public void setCor(String cor)
-   {
-      this.cor = cor;
-   }
-
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      result += "peso: " + peso;
-      result += ", preco: " + preco;
-      if (cor != null && !cor.trim().isEmpty())
-         result += ", cor: " + cor;
-      return result;
-   }
 }
