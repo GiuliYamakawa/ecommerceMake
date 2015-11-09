@@ -30,6 +30,9 @@ public class Produto implements Serializable
 
    @Column
    private double peso;
+   
+   @Column
+   private String descricao;
 
    @Column
    private double preco;
@@ -138,4 +141,12 @@ public class Produto implements Serializable
          result += ", cor: " + cor;
       return result;
    }
+
+public String getDescricao() {
+	return descricao;
+}
+
+public void setDescricao(String descricao) {
+	this.descricao = descricao;
+}
 }
