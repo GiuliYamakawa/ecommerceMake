@@ -17,7 +17,7 @@ import java.util.HashSet;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Pedido implements Serializable
+public class Pedido implements BaseEntity, Serializable
 {
 
    @Id

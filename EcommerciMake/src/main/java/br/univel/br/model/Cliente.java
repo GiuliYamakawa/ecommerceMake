@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 @Entity
-public class Usuario implements BaseEntity, Serializable {
+public class Cliente implements BaseEntity, Serializable {
 
 	/**
 	 * 
@@ -56,10 +56,10 @@ public class Usuario implements BaseEntity, Serializable {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Usuario)) {
+		if (!(obj instanceof Cliente)) {
 			return false;
 		}
-		Usuario other = (Usuario) obj;
+		Cliente other = (Cliente) obj;
 		if (id != null) {
 			if (!id.equals(other.id)) {
 				return false;

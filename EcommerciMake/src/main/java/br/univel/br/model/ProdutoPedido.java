@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
-public class ProdutoPedido implements Serializable {
+public class ProdutoPedido implements BaseEntity, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

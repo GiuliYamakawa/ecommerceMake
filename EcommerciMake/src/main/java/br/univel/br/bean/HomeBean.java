@@ -1,7 +1,5 @@
 package br.univel.br.bean;
 
-
-
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -28,5 +26,7 @@ public class HomeBean implements Serializable {
 	public void setProduto(String produto) {
 		this.produto = produto;
 	}
+	
+	
 
 }

@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 
 @Entity
-public class Categoria implements Serializable
+public class Categoria implements BaseEntity, Serializable
 {
 
    @Id

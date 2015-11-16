@@ -14,7 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 
 @Entity
-public class Produto implements Serializable
+public class Produto implements BaseEntity, Serializable
 {
 
    @Id
