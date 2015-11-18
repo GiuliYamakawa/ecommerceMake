@@ -12,8 +12,10 @@ import br.univel.br.model.Categoria;
 import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 public class Produto implements BaseEntity, Serializable
 {
 
@@ -30,7 +32,7 @@ public class Produto implements BaseEntity, Serializable
 
    @Column
    private double peso;
-   
+
    @Column
    private String descricao;
 
@@ -142,11 +144,13 @@ public class Produto implements BaseEntity, Serializable
       return result;
    }
 
-public String getDescricao() {
-	return descricao;
-}
+   public String getDescricao()
+   {
+      return descricao;
+   }
 
-public void setDescricao(String descricao) {
-	this.descricao = descricao;
-}
+   public void setDescricao(String descricao)
+   {
+      this.descricao = descricao;
+   }
 }

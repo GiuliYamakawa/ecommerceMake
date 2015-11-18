@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -13,8 +15,8 @@ import util.JPAUtil;
 import br.univel.br.model.Produto;
 import br.univel.br.model.ProdutoPedido;
 
-//@SessionScoped
-@ManagedBean
+@SessionScoped
+@Named
 public class CarrinhoBean implements Serializable {
 	/**
 	 * 
@@ -66,5 +68,9 @@ public class CarrinhoBean implements Serializable {
 
 	public void setProdutos(Map<Long, ProdutoPedido> produtos) {
 		this.produtos = produtos;
+	}
+	
+	public void limpar(){
+		this.produtos.clear();
 	}
 }

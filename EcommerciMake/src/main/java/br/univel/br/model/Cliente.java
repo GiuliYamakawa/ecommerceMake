@@ -8,103 +8,123 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-public class Cliente implements BaseEntity, Serializable {
+@XmlRootElement
+public class Cliente implements BaseEntity, Serializable
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+   /**
+    * 
+    */
+   private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
-	private Long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column(name = "id", updatable = false, nullable = false)
+   private Long id;
 
-	@Version
-	@Column(name = "version")
-	private int version;
+   @Version
+   @Column(name = "version")
+   private int version;
 
-	@Column
-	private String nome;
+   @Column
+   private String nome;
 
-	@Column
-	private String login;
+   @Column
+   private String login;
 
-	@Column
-	private String senha;
+   @Column
+   private String senha;
 
-	public Long getId() {
-		return this.id;
-	}
+   public Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+   public void setId(final Long id)
+   {
+      this.id = id;
+   }
 
-	public int getVersion() {
-		return this.version;
-	}
+   public int getVersion()
+   {
+      return this.version;
+   }
 
-	public void setVersion(final int version) {
-		this.version = version;
-	}
+   public void setVersion(final int version)
+   {
+      this.version = version;
+   }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Cliente)) {
-			return false;
-		}
-		Cliente other = (Cliente) obj;
-		if (id != null) {
-			if (!id.equals(other.id)) {
-				return false;
-			}
-		}
-		return true;
-	}
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+      {
+         return true;
+      }
+      if (!(obj instanceof Cliente))
+      {
+         return false;
+      }
+      Cliente other = (Cliente) obj;
+      if (id != null)
+      {
+         if (!id.equals(other.id))
+         {
+            return false;
+         }
+      }
+      return true;
+   }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((id == null) ? 0 : id.hashCode());
+      return result;
+   }
 
-	@Override
-	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		result += "nome: " + nome;
-		result += ", login: " + getLogin();
-		return result;
-	}
+   @Override
+   public String toString()
+   {
+      String result = getClass().getSimpleName() + " ";
+      result += "nome: " + nome;
+      result += ", login: " + getLogin();
+      return result;
+   }
 
-	public String getNome() {
-		return nome;
-	}
+   public String getNome()
+   {
+      return nome;
+   }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+   public void setNome(String nome)
+   {
+      this.nome = nome;
+   }
 
-	public String getLogin() {
-		return login;
-	}
+   public String getLogin()
+   {
+      return login;
+   }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+   public void setLogin(String login)
+   {
+      this.login = login;
+   }
 
-	public String getSenha() {
-		return senha;
-	}
+   public String getSenha()
+   {
+      return senha;
+   }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+   public void setSenha(String senha)
+   {
+      this.senha = senha;
+   }
 }
