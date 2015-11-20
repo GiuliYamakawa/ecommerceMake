@@ -1,12 +1,16 @@
 package br.univel.controller;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
 import br.univel.br.bean.CarrinhoBean;
+import br.univel.br.model.Pedido;
 import br.univel.br.model.Produto;
-import br.univel.br.model.Venda;
 import br.univel.br.rest.ProdutoEndpoint;
 import br.univel.br.rest.VendaEndpoint;
 
@@ -34,9 +38,12 @@ public class CarrinhoController {
 	}
 	
 	public void finalizar(){
-		Venda venda = new Venda();
-		//...
-		vendaEp.create(venda);
+		Pedido pedido = new Pedido();
+		Iterator<Produto> it = (Iterator<Produto>) carrinhobean.getProdutos();
+		while(it.hasNext()){
+			
+		}
+	
 	}
 	
 }
