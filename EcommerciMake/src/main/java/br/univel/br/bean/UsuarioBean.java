@@ -9,9 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import util.JPAUtil;
-import br.univel.br.model.Cliente;
 import br.univel.br.model.Usuario;
+import br.univel.br.util.JPAUtil;
 
 @ManagedBean
 public class UsuarioBean implements Serializable {

@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import util.JPAUtil;
 import br.univel.br.model.Categoria;
+import br.univel.br.util.JPAUtil;
 
 @ManagedBean
 public class CategoriaBean implements Serializable {

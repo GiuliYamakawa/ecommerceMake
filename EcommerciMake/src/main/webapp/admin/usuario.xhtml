@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  
+	<ui:composition template="template-cadastro.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<h3>Usuários</h3>
+				<h:panelGrid columns="2"> 
+					Nome: <h:inputText value="#{usuarioBean.cliente.nome}"/>
+					Login: <h:inputText value="#{usuarioBean.cliente.login}"/>
+					Senha: <h:inputSecret value="#{usuarioBean.cliente.senha}"/>
+					<h:commandButton value="Gravar" action="#{usuarioBean.gravar}"/>
+				</h:panelGrid>	
+					<br/><br/>
+				
+				<h:dataTable value="#{usuarioBean.usuarios}" var="usuario" border="1" cellspacing="0" cellpadding="5">
+					<h:column>
+						<f:facet name="header">ID</f:facet>	 
+						#{usuario.id}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Nome</f:facet>	 
+						#{usuario.nome}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Login</f:facet>	 
+						#{usuario.login}
+					</h:column>
+					<h:column>
+						<h:commandButton value="Remove" action="#{usuarioBean.remove(usuario.id)}"/>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</ui:define>	
+	</ui:composition>
+</html>

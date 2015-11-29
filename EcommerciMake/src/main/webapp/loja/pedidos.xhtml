@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  
+	<ui:composition template="template-loja.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<h3>Pedidos</h3>
+				
+				<h:dataTable value="#{pedidosBean.pedidos}" var="produto" border="1" cellspacing="0" cellpadding="5">
+					<h:column>
+						<f:facet name="header">Numero pedido</f:facet>	 
+						#{produto.id}
+					</h:column>
+<!-- 					<h:column> -->
+<!-- 						<f:facet name="header">Descrição</f:facet>	  -->
+<!-- 						#{produto.descricao} -->
+<!-- 					</h:column> -->
+<!-- 					<h:column> -->
+<!-- 						<f:facet name="header">Nome</f:facet>	  -->
+<!-- 						#{produto.nome} -->
+<!-- 					</h:column> -->
+<!-- 					<h:column> -->
+<!-- 						<f:facet name="header">Peso</f:facet>	  -->
+<!-- 						#{produto.peso} -->
+<!-- 					</h:column> -->
+<!-- 					<h:column> -->
+<!-- 						<f:facet name="header">Preço</f:facet>	  -->
+<!-- 						#{produto.preco} -->
+<!-- 					</h:column> -->
+<!-- 					<h:column> -->
+<!-- 						<f:facet name="header">Categoria</f:facet>	  -->
+<!-- 						#{produto.categoria.descricao} -->
+<!-- 					</h:column> -->
+<!-- 					<h:column> -->
+<!-- 						<h:commandButton value="Remove" action="#{produtoBean.remove(produto.id)}"/> -->
+<!-- 					</h:column> -->
+				</h:dataTable>
+			</h:form>
+		</ui:define>	
+	</ui:composition>
+</html>

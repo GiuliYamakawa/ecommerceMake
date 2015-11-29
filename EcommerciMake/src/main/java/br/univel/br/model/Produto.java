@@ -1,156 +1,142 @@
 package br.univel.br.model;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import br.univel.br.model.Categoria;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.FetchType;
-import javax.persistence.CascadeType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Version;
 
 @Entity
-@XmlRootElement
-public class Produto implements BaseEntity, Serializable
-{
+public class Produto implements BaseEntity, Serializable {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", updatable = false, nullable = false)
+	private Long id;
+	@Version
+	@Column(name = "version")
+	private int version;
 
-   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-   private Categoria categoria;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Categoria categoria;
 
-   @Column
-   private double peso;
+	@Column
+	private String descricao;
 
-   @Column
-   private String descricao;
+	@Column
+	private String nome;
 
-   @Column
-   private double preco;
+	@Column
+	private double peso;
 
-   @Column
-   private String cor;
+	@Column
+	private double preco;
 
-   public Long getId()
-   {
-      return this.id;
-   }
+	@Column
+	private String cor;
 
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
+	public Long getId() {
+		return this.id;
+	}
 
-   public int getVersion()
-   {
-      return this.version;
-   }
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
+	public int getVersion() {
+		return this.version;
+	}
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof Produto))
-      {
-         return false;
-      }
-      Produto other = (Produto) obj;
-      if (id != null)
-      {
-         if (!id.equals(other.id))
-         {
-            return false;
-         }
-      }
-      return true;
-   }
+	public void setVersion(final int version) {
+		this.version = version;
+	}
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((id == null) ? 0 : id.hashCode());
-      return result;
-   }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Produto)) {
+			return false;
+		}
+		Produto other = (Produto) obj;
+		if (id != null) {
+			if (!id.equals(other.id)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-   public Categoria getCategoria()
-   {
-      return this.categoria;
-   }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
-   public void setCategoria(final Categoria categoria)
-   {
-      this.categoria = categoria;
-   }
+	public Categoria getCategoria() {
+		return this.categoria;
+	}
 
-   public double getPeso()
-   {
-      return peso;
-   }
+	public void setCategoria(final Categoria categoria) {
+		this.categoria = categoria;
+	}
 
-   public void setPeso(double peso)
-   {
-      this.peso = peso;
-   }
+	public double getPeso() {
+		return peso;
+	}
 
-   public double getPreco()
-   {
-      return preco;
-   }
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
 
-   public void setPreco(double preco)
-   {
-      this.preco = preco;
-   }
+	public double getPreco() {
+		return preco;
+	}
 
-   public String getCor()
-   {
-      return cor;
-   }
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
 
-   public void setCor(String cor)
-   {
-      this.cor = cor;
-   }
+	public String getCor() {
+		return cor;
+	}
 
-   @Override
-   public String toString()
-   {
-      String result = getClass().getSimpleName() + " ";
-      result += "peso: " + peso;
-      result += ", preco: " + preco;
-      if (cor != null && !cor.trim().isEmpty())
-         result += ", cor: " + cor;
-      return result;
-   }
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
 
-   public String getDescricao()
-   {
-      return descricao;
-   }
+	@Override
+	public String toString() {
+		String result = getClass().getSimpleName() + " ";
+		result += "peso: " + peso;
+		result += ", preco: " + preco;
+		if (cor != null && !cor.trim().isEmpty())
+			result += ", cor: " + cor;
+		return result;
+	}
 
-   public void setDescricao(String descricao)
-   {
-      this.descricao = descricao;
-   }
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 }

@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  
+	<ui:composition template="template-cadastro.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<h3>Produtos</h3>
+				<h:panelGrid columns="2"> 
+					Descrição: <h:inputText value="#{produtoBean.produto.descricao}"/>
+					Nome: <h:inputText value="#{produtoBean.produto.nome}"/>
+					Peso: <h:inputText value="#{produtoBean.produto.peso}"/>
+					Preço: <h:inputText value="#{produtoBean.produto.preco}"/>
+					Cor: <h:inputText value="#{produtoBean.produto.cor}" />
+					Categoria: <h:selectOneMenu value="#{produtoBean.produto.categoria}"
+						 converter="converter.SimpleEntityConverter"  >
+						<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/> 
+						<f:selectItems value="#{categoriaBean.categorias}" var="categoria" itemValue="#{categoria}" 
+							itemLabel="#{categoria.descricao}" /> 
+					</h:selectOneMenu>
+					<h:commandButton value="Gravar" action="#{produtoBean.gravar}"/>
+				</h:panelGrid>
+					<br/>
+				
+				
+				<br/><br/>
+				
+				<h:dataTable value="#{produtoBean.produtos}" var="produto" border="1" cellspacing="0" cellpadding="5">
+					<h:column>
+						<f:facet name="header">ID</f:facet>	 
+						#{produto.id}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Descrição</f:facet>	 
+						#{produto.descricao}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Nome</f:facet>	 
+						#{produto.nome}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Peso</f:facet>	 
+						#{produto.peso}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Preço</f:facet>	 
+						#{produto.preco}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Categoria</f:facet>	 
+						#{produto.categoria.descricao}
+					</h:column>
+					<h:column>
+						<h:commandButton value="Remove" action="#{produtoBean.remove(produto.id)}"/>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</ui:define>	
+	</ui:composition>
+</html>

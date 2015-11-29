@@ -9,9 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import util.JPAUtil;
-import br.univel.br.model.Categoria;
 import br.univel.br.model.Produto;
+import br.univel.br.util.JPAUtil;
 
 @ManagedBean
 public class ProdutoBean implements Serializable {
@@ -41,16 +40,21 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void remove(Long id) {
-		EntityManager em = JPAUtil.getEntityManager();
-		Produto produto = em.getReference(Produto.class, id);
-
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		em.remove(produto);
-		tx.commit();
-		em.close();
-
-		setProdutos(null);
+		try {
+			EntityManager em = JPAUtil.getEntityManager();
+			Produto produto = em.getReference(Produto.class, id);
+			
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			em.remove(produto);
+			tx.commit();
+			em.close();
+			
+			setProdutos(null);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	public List<Produto> getProdutos() {

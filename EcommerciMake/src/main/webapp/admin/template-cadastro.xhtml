@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  
+	<h:head>
+	  	<title>HI JSF</title>
+ 		  	<style type="text/css">
+		  	body {
+			    margin: 0 !important;
+			    padding: 0 !important;
+			}
+	  		.menu {
+			    background: #4a148c  none repeat scroll 0 0;
+			    padding: 0;
+			    vertical-align: top;
+			}
+			.menu ul {
+			    padding: 5px 0;
+			    width: 140px;
+			}
+			.menu li {
+			    list-style: outside none none;
+			}
+			.menu li:hover{
+				cursor: pointer;
+				background: #6a1b9a;
+			}
+			.menu li a {
+				color: #fff;
+			    display: block;
+			    padding: 5px;
+			    text-decoration: none;
+			}
+	  	</style>
+	</h:head>
+	
+	<h:body>
+		<h:panelGrid columns="2" columnClasses="menu">
+			<UL>
+				<li><a href="/jsf/admin/produto.jsf">Produto</a></li>
+				<li><a href="/jsf/admin/categoria.jsf">Categoria</a></li>
+				<li><a href="/jsf/admin/cliente.jsf">Cliente</a></li>
+				<li><a href="/jsf/admin/usuario.jsf">Usuário</a></li>
+			</UL>
+			<div>
+				<ui:insert name="content" />
+			</div>
+		</h:panelGrid>
+		<h:form>
+			<h:commandLink action="#{logoutBean.logout}" value="SAIR"/>
+		</h:form>
+	</h:body>
+	
+</html>
