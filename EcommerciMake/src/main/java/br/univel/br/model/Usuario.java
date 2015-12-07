@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 @Entity
-public class Usuario implements BaseEntity, Serializable {
+public class Usuario implements Serializable {
 
 	/**
 	 * 
@@ -31,6 +31,9 @@ public class Usuario implements BaseEntity, Serializable {
 
 	@Column
 	private String login;
+	
+	@Column
+	private String role;
 
 	@Column
 	private String senha;
@@ -106,5 +109,13 @@ public class Usuario implements BaseEntity, Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

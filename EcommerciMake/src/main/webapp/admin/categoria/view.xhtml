@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{categoriaBean.id}"/>
+		<f:event type="preRenderView" listener="#{categoriaBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Categoria"/>
+
+	<ui:define name="header">
+		Categoria
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Categoria
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="categoriaBeanCategoriaProdutos" value="Produtos:"/>
+			<h:dataTable id="categoriaBeanCategoriaProdutos" styleClass="data-table" value="#{forgeview:asList(categoriaBean.categoria.produtos)}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Peso"/>
+					</f:facet>
+					<h:link outcome="/admin/produto/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemPeso" value="#{_item.peso}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Preco"/>
+					</f:facet>
+					<h:link outcome="/admin/produto/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemPreco" value="#{_item.preco}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Cor"/>
+					</f:facet>
+					<h:link outcome="/admin/produto/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCor" value="#{_item.cor}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Descricao"/>
+					</f:facet>
+					<h:link outcome="/admin/produto/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemDescricao" value="#{_item.descricao}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nome"/>
+					</f:facet>
+					<h:link outcome="/admin/produto/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemNome" value="#{_item.nome}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel for="categoriaBeanCategoriaDescricao" value="Descricao:"/>
+			<h:outputText id="categoriaBeanCategoriaDescricao" value="#{categoriaBean.categoria.descricao}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

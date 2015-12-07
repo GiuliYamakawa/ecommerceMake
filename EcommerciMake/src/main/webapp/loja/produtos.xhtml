@@ -1,14 +1,28 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:f="http://java.sun.com/jsf/core" 
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
-	  
-	<ui:composition template="template-loja.xhtml">
-		<ui:define name="content">
-			<h:form>
-				<h3>Produtos</h3>
-				
-				<h:dataTable value="#{produtoBean.produtos}" var="produto" border="1" cellspacing="0" cellpadding="5">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/lojaTemplate.xhtml">
+
+	<ui:param name="pageTitle" value="Search Produto entities"/>
+
+	<ui:define name="header">
+		Produto
+	</ui:define>
+
+	<ui:define name="subheader">
+		Adicione os produtos ao carrinho
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+
+	<ui:define name="main">
+		<h:form>
+			<h:dataTable value="#{produtosBean.produtos}" var="produto"  styleClass="data-table">
 					<h:column>
 						<f:facet name="header">Descrição</f:facet>	 
 						#{produto.descricao}
@@ -33,7 +47,7 @@
 						<h:commandButton value="Comprar" action="#{carrinhoBean.addProduto(produto)}"/>
 					</h:column>
 				</h:dataTable>
-			</h:form>
-		</ui:define>	
-	</ui:composition>
-</html>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

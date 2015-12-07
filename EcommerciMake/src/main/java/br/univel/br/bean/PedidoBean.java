@@ -24,13 +24,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import br.univel.br.model.Produto;
-import br.univel.br.model.Categoria;
+import br.univel.br.model.Pedido;
+import br.univel.br.model.ProdutoPedido;
+import java.util.Iterator;
 
 /**
- * Backing bean for Produto entities.
+ * Backing bean for Pedido entities.
  * <p>
- * This class provides CRUD functionality for all Produto entities. It focuses
+ * This class provides CRUD functionality for all Pedido entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
  * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
@@ -40,13 +41,13 @@ import br.univel.br.model.Categoria;
 @Named
 @Stateful
 @ConversationScoped
-public class ProdutoBean implements Serializable
+public class PedidoBean implements Serializable
 {
 
    private static final long serialVersionUID = 1L;
 
    /*
-    * Support creating and retrieving Produto entities
+    * Support creating and retrieving Pedido entities
     */
 
    private Long id;
@@ -61,11 +62,11 @@ public class ProdutoBean implements Serializable
       this.id = id;
    }
 
-   private Produto produto;
+   private Pedido pedido;
 
-   public Produto getProduto()
+   public Pedido getPedido()
    {
-      return this.produto;
+      return this.pedido;
    }
 
    @Inject
@@ -79,13 +80,6 @@ public class ProdutoBean implements Serializable
 
       this.conversation.begin();
       return "create?faces-redirect=true";
-   }
-   
-   public String create2()
-   {
-	   System.out.println("ProdutoBean.create2()");
-	   this.conversation.begin();
-	   return "create?faces-redirect=true";
    }
 
    public void retrieve()
@@ -103,22 +97,22 @@ public class ProdutoBean implements Serializable
 
       if (this.id == null)
       {
-         this.produto = this.example;
+         this.pedido = this.example;
       }
       else
       {
-         this.produto = findById(getId());
+         this.pedido = findById(getId());
       }
    }
 
-   public Produto findById(Long id)
+   public Pedido findById(Long id)
    {
 
-      return this.entityManager.find(Produto.class, id);
+      return this.entityManager.find(Pedido.class, id);
    }
 
    /*
-    * Support updating and deleting Produto entities
+    * Support updating and deleting Pedido entities
     */
 
    public String update()
@@ -129,13 +123,13 @@ public class ProdutoBean implements Serializable
       {
          if (this.id == null)
          {
-            this.entityManager.persist(this.produto);
+            this.entityManager.persist(this.pedido);
             return "search?faces-redirect=true";
          }
          else
          {
-            this.entityManager.merge(this.produto);
-            return "view?faces-redirect=true&id=" + this.produto.getId();
+            this.entityManager.merge(this.pedido);
+            return "view?faces-redirect=true&id=" + this.pedido.getId();
          }
       }
       catch (Exception e)
@@ -151,11 +145,15 @@ public class ProdutoBean implements Serializable
 
       try
       {
-         Produto deletableEntity = findById(getId());
-         Categoria categoria = deletableEntity.getCategoria();
-         categoria.getProdutos().remove(deletableEntity);
-         deletableEntity.setCategoria(null);
-         this.entityManager.merge(categoria);
+         Pedido deletableEntity = findById(getId());
+         Iterator<ProdutoPedido> iterProdutosPedido = deletableEntity.getProdutosPedido().iterator();
+         for (; iterProdutosPedido.hasNext();)
+         {
+            ProdutoPedido nextInProdutosPedido = iterProdutosPedido.next();
+            nextInProdutosPedido.setPedido(null);
+            iterProdutosPedido.remove();
+            this.entityManager.merge(nextInProdutosPedido);
+         }
          this.entityManager.remove(deletableEntity);
          this.entityManager.flush();
          return "search?faces-redirect=true";
@@ -168,14 +166,14 @@ public class ProdutoBean implements Serializable
    }
 
    /*
-    * Support searching Produto entities with pagination
+    * Support searching Pedido entities with pagination
     */
 
    private int page;
    private long count;
-   private List<Produto> pageItems;
+   private List<Pedido> pageItems;
 
-   private Produto example = new Produto();
+   private Pedido example = new Pedido();
 
    public int getPage()
    {
@@ -192,12 +190,12 @@ public class ProdutoBean implements Serializable
       return 10;
    }
 
-   public Produto getExample()
+   public Pedido getExample()
    {
       return this.example;
    }
 
-   public void setExample(Produto example)
+   public void setExample(Pedido example)
    {
       this.example = example;
    }
@@ -215,7 +213,7 @@ public class ProdutoBean implements Serializable
       // Populate this.count
 
       CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-      Root<Produto> root = countCriteria.from(Produto.class);
+      Root<Pedido> root = countCriteria.from(Pedido.class);
       countCriteria = countCriteria.select(builder.count(root)).where(
             getSearchPredicates(root));
       this.count = this.entityManager.createQuery(countCriteria)
@@ -223,46 +221,25 @@ public class ProdutoBean implements Serializable
 
       // Populate this.pageItems
 
-      CriteriaQuery<Produto> criteria = builder.createQuery(Produto.class);
-      root = criteria.from(Produto.class);
-      TypedQuery<Produto> query = this.entityManager.createQuery(criteria
+      CriteriaQuery<Pedido> criteria = builder.createQuery(Pedido.class);
+      root = criteria.from(Pedido.class);
+      TypedQuery<Pedido> query = this.entityManager.createQuery(criteria
             .select(root).where(getSearchPredicates(root)));
       query.setFirstResult(this.page * getPageSize()).setMaxResults(
             getPageSize());
       this.pageItems = query.getResultList();
    }
 
-   private Predicate[] getSearchPredicates(Root<Produto> root)
+   private Predicate[] getSearchPredicates(Root<Pedido> root)
    {
 
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      Categoria categoria = this.example.getCategoria();
-      if (categoria != null)
-      {
-         predicatesList.add(builder.equal(root.get("categoria"), categoria));
-      }
-      String cor = this.example.getCor();
-      if (cor != null && !"".equals(cor))
-      {
-         predicatesList.add(builder.like(root.<String> get("cor"), '%' + cor + '%'));
-      }
-      String descricao = this.example.getDescricao();
-      if (descricao != null && !"".equals(descricao))
-      {
-         predicatesList.add(builder.like(root.<String> get("descricao"), '%' + descricao + '%'));
-      }
-      String nome = this.example.getNome();
-      if (nome != null && !"".equals(nome))
-      {
-         predicatesList.add(builder.like(root.<String> get("nome"), '%' + nome + '%'));
-      }
-
       return predicatesList.toArray(new Predicate[predicatesList.size()]);
    }
 
-   public List<Produto> getPageItems()
+   public List<Pedido> getPageItems()
    {
       return this.pageItems;
    }
@@ -273,17 +250,17 @@ public class ProdutoBean implements Serializable
    }
 
    /*
-    * Support listing and POSTing back Produto entities (e.g. from inside an
+    * Support listing and POSTing back Pedido entities (e.g. from inside an
     * HtmlSelectOneMenu)
     */
 
-   public List<Produto> getAll()
+   public List<Pedido> getAll()
    {
 
-      CriteriaQuery<Produto> criteria = this.entityManager
-            .getCriteriaBuilder().createQuery(Produto.class);
+      CriteriaQuery<Pedido> criteria = this.entityManager
+            .getCriteriaBuilder().createQuery(Pedido.class);
       return this.entityManager.createQuery(
-            criteria.select(criteria.from(Produto.class))).getResultList();
+            criteria.select(criteria.from(Pedido.class))).getResultList();
    }
 
    @Resource
@@ -292,7 +269,7 @@ public class ProdutoBean implements Serializable
    public Converter getConverter()
    {
 
-      final ProdutoBean ejbProxy = this.sessionContext.getBusinessObject(ProdutoBean.class);
+      final PedidoBean ejbProxy = this.sessionContext.getBusinessObject(PedidoBean.class);
 
       return new Converter()
       {
@@ -313,7 +290,7 @@ public class ProdutoBean implements Serializable
                return "";
             }
 
-            return String.valueOf(((Produto) value).getId());
+            return String.valueOf(((Pedido) value).getId());
          }
       };
    }
@@ -322,17 +299,17 @@ public class ProdutoBean implements Serializable
     * Support adding children to bidirectional, one-to-many tables
     */
 
-   private Produto add = new Produto();
+   private Pedido add = new Pedido();
 
-   public Produto getAdd()
+   public Pedido getAdd()
    {
       return this.add;
    }
 
-   public Produto getAdded()
+   public Pedido getAdded()
    {
-      Produto added = this.add;
-      this.add = new Produto();
+      Pedido added = this.add;
+      this.add = new Pedido();
       return added;
    }
 }

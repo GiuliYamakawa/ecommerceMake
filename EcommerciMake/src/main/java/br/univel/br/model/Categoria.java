@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 @Entity
-public class Categoria implements BaseEntity, Serializable {
+public class Categoria implements Serializable {
 
 	/**
 	 * 
@@ -52,10 +52,7 @@ public class Categoria implements BaseEntity, Serializable {
 
 	@Override
 	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		if (id != null)
-			result += "id: " + id;
-		return result;
+		return descricao != null ? descricao : "";
 	}
 
 	@Override

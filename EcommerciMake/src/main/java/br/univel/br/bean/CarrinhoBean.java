@@ -2,27 +2,38 @@ package br.univel.br.bean;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import br.univel.br.model.Pedido;
 import br.univel.br.model.Produto;
 import br.univel.br.model.ProdutoPedido;
-import br.univel.br.util.JPAUtil;
 
+//@SessionScoped
+//@ManagedBean
+@Named
+@Stateful
 @SessionScoped
-@ManagedBean
 public class CarrinhoBean implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	 @PersistenceContext(type = PersistenceContextType.EXTENDED)
+	 private EntityManager entityManager;
+	
 	private Map<Long, ProdutoPedido> produtos;
 
 	@PostConstruct
@@ -49,33 +60,6 @@ public class CarrinhoBean implements Serializable {
 		produtos.put(produto.getId(), pp);
 	}
 	
-	public void addPr(String produto) {
-		if (true) {
-
-			throw new NullPointerException();
-		}
-		Long id = System.currentTimeMillis();
-		Produto p = new Produto();
-		p.setDescricao(produto);
-		ProdutoPedido pp = new ProdutoPedido();
-		pp.setProduto(p);
-		pp.setQuantidade(1);
-		pp.setId(id);
-
-		// produtos.put(id, pp);
-
-		EntityManager em = JPAUtil.getEntityManager();
-
-		Produto pr = new Produto();
-		pr.setDescricao(produto);
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		em.persist(pr);
-		tx.commit();
-		em.close();
-
-	}
-
 	/**
 	 * Remove um produto do carrinho
 	 * @param id
@@ -93,22 +77,23 @@ public class CarrinhoBean implements Serializable {
 	 * @param id
 	 */
 	public void finalizarPedido() {
-		EntityManager em = JPAUtil.getEntityManager();
+//		EntityManager em = JPAUtil.getEntityManager();
 
 		Pedido pedido = new Pedido();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		em.persist(pedido);
+//		EntityTransaction tx = em.getTransaction();
+//		tx.begin();
+//		em.persist(pedido);
+		entityManager.persist(pedido);
 		
 		for (ProdutoPedido produtoPedido : this.produtos.values()) {
-			produtoPedido.setProduto(em.merge(produtoPedido.getProduto()));
+			produtoPedido.setProduto(entityManager.merge(produtoPedido.getProduto()));
 			produtoPedido.setPedido(pedido);
-			em.persist(produtoPedido);
+			entityManager.persist(produtoPedido);
 		}
 		
 		
-		tx.commit();
-		em.close();
+//		tx.commit();
+//		em.close();
 		limpaCarrinho();
 	}
 

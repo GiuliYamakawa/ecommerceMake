@@ -1,14 +1,29 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:f="http://java.sun.com/jsf/core" 
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
-	  
-	<ui:composition template="template-loja.xhtml">
-		<ui:define name="content">
-			<h:form>
-				<h3>Carrinho</h3>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/lojaTemplate.xhtml">
+
+	<ui:param name="pageTitle" value="Search Produto entities"/>
+
+	<ui:define name="header">
+		Carrinho
+	</ui:define>
+
+	<ui:define name="subheader">
+		Produtos adicionados no carrinho
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+
+	<ui:define name="main">
+	<h:form>
 				
-				<h:dataTable value="#{carrinhoBean.produtos.values()}" var="pp" border="1" cellspacing="0" cellpadding="5">
+				<h:dataTable value="#{carrinhoBean.produtos.values()}" var="pp"  styleClass="data-table">
 					<h:column>
 						<f:facet name="header">Descrição</f:facet>	 
 						#{pp.produto.descricao}
@@ -41,8 +56,9 @@
 						<h:commandButton value="Remover do carrinho" action="#{carrinhoBean.removeProduto(pp.produto.id)}"/>
 					</h:column>
 				</h:dataTable>
-				<h:commandButton value="Finalizar pedido" action="#{carrinhoBean.finalizarPedido()}"/>
+				<h:commandButton value="Finalizar pedido" action="#{carrinhoBean.finalizarPedido()}" styleClass="btn btn-primary"/>
 			</h:form>
-		</ui:define>	
-	</ui:composition>
-</html>
+	</ui:define>
+
+</ui:composition>
+

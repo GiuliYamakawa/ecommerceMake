@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 @Entity
-public class Cliente implements BaseEntity, Serializable {
+public class Cliente implements Serializable {
 
 	/**
 	 * 

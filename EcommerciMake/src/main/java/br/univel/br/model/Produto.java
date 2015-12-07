@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
-public class Produto implements BaseEntity, Serializable {
+public class Produto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -116,12 +116,7 @@ public class Produto implements BaseEntity, Serializable {
 
 	@Override
 	public String toString() {
-		String result = getClass().getSimpleName() + " ";
-		result += "peso: " + peso;
-		result += ", preco: " + preco;
-		if (cor != null && !cor.trim().isEmpty())
-			result += ", cor: " + cor;
-		return result;
+		return nome;
 	}
 
 	public String getDescricao() {
